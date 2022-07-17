@@ -1,5 +1,5 @@
 # Eternal - Discord Bot
-Eternal is a Discord Bot written in JAVA using JDA which is a java wrapper for Discord API.
+Eternal is a Discord Bot written in JAVA using JDA(java discord api) which is a java wrapper for Discord API.
 
 
 ### Features
