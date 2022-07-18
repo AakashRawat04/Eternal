@@ -1,14 +1,14 @@
 # Eternal - Discord Bot
+
 Eternal is a Discord Bot written in JAVA using JDA which is a java wrapper for Discord API.
 
-
 ### Features
+
 - User Commands.
 - Moderation Commands For Moderators.
 - Advanced Commands For Admin Users.
 - Music Commands.
-- Every Type Of Commands for every type of users are Available. 
-
+- Every Type Of Commands for every type of users are Available.
 
 ## Tech Stack
 
@@ -19,8 +19,10 @@ Eternal is a Discord Bot written in JAVA using JDA which is a java wrapper for D
 **DataBase :** MongoDb to be used in future.
 
 ## Optimizations
-A lot of features are being pushed continously. If you want to contribute to the community you can open pull requests. 
-Anyone offering good features to the bot is welcome. 
+
+A lot of features are being pushed continously. If you want to contribute to the community you can open pull requests.
+Anyone offering good features to the bot is welcome.
+
 ## Related
 
 We have created this bot using JDA (java discord api), which is a java wrapper for the discord api and it is widely used in the java community for making Discord Bots.
@@ -34,9 +36,9 @@ The documentation of JDA is available in the link below, and if you want to cont
 [JDA Documentation](https://github.com/matiassingers/awesome-readme)
   
 [JDA Java Docs](https://ci.dv8tion.net/job/JDA5/javadoc/)
-    
+
 [JDA Discord Server](https://discord.gg/jda)
+
 ## Authors
 
 - [@tripsterxx](https://github.com/tripsterxx)
-
