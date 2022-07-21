@@ -14,7 +14,7 @@ Eternal is a Discord Bot written in JAVA using JDA which is a java wrapper for D
 
 **Language Used :** Java.
 
-**API wrapper used :** JDA (java discord api).
+**API wrapper used :** JDA(java discord api) (v5.0.0-alpha.16).
 
 **DataBase :** MongoDb to be used in future.
 
@@ -25,7 +25,7 @@ Anyone offering good features to the bot is welcome.
 
 ## Related
 
-We have created this bot using JDA (java discord api), which is a java wrapper for the discord api and it is widely used in the java community for making Discord Bots.
+We have created this bot using JDA(v5.0.0-alpha.16) (java discord api), which is a java wrapper for the discord api and it is widely used in the java community for making Discord Bots.
   
 The documentation of JDA is available in the link below, and if you want to contribute to this project, then understanding JDA is an essential part.
   
