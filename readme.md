@@ -47,7 +47,7 @@ Open intellij idea and make a new project from the start.
 - In advanced setting do as per described in the image.
 - Create the project.
 
-<img src="https://cdn.discordapp.com/attachments/999332296396124251/999658678837850132/step1.png" width="450" alt="step 1">
+<img src="https://cdn.discordapp.com/attachments/999332296396124251/999658678837850132/step1.png" width="500" alt="step 1">
 
 #### Step 2.
 It is highly recommended to change/refactor the Main.java file.
@@ -72,7 +72,8 @@ Things ahead of this process can be just done by pulling this repository.
 <br /> 
 <img src="https://cdn.discordapp.com/attachments/999332296396124251/999658834652057700/step4.png" width="450" height = "250" alt="step2-2">
 
-*if you find any difficulty in doing anything you can just goin our server for help. the link to the server is given somewhere below.
+*if you find any difficulty in doing anything you can just go to our server for help. the link to the server is given somewhere below.
+
 ## Optimizations
 
 A lot of features are being pushed continously. If you want to contribute to the community you can open pull requests.

@@ -31,7 +31,7 @@ public class EternalBot {
         builder.setActivity(Activity.watching("Breaking Bad"));
         shardManager = builder.build();
 
-        //Register listners
+        //Register listeners
         shardManager.addEventListener(new EventListener());
     }
 

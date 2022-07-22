@@ -42,18 +42,6 @@ public class EventListener extends ListenerAdapter {
         if (message.contains("ping")){
             event.getChannel().sendMessage("pong..").queue();
         }
-        if(message.equals("daddy")){
-            event.getChannel().sendMessage("aah nooo " + name +".... stop it plssss... aaahhhhh").queue();
-        }
-        if(message.equals("mommy")){
-            event.getChannel().sendMessage("sugar mommy for "+ name +" incoming").queue();
-        }
-        if(message.equals("ily")){
-            if (name.equals("bigfloppa")){
-                event.getChannel().sendMessage("mommis most fav boi "+ name).queue();
-            }
-            event.getChannel().sendMessage("mommy loves "+name).queue();
-        }
     }
 
 
