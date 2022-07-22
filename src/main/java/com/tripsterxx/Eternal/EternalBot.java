@@ -35,14 +35,15 @@ public class EternalBot {
         shardManager.addEventListener(new EventListener());
     }
 
+    //some getters.
     public Dotenv getConfig(){
         return config;
     }
-
     public ShardManager getShardManager(){
         return shardManager;
     }
 
+    // Initializing the bot--> makes the bot online.
     public static void main(String[] args) {
         try{
             EternalBot bot = new EternalBot();

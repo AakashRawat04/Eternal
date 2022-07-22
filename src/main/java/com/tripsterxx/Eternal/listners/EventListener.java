@@ -1,20 +1,22 @@
 package com.tripsterxx.Eternal.listners;
 
-import com.tripsterxx.Eternal.EternalBot;
-import net.dv8tion.jda.api.entities.Channel;
+// Imports
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
-import net.dv8tion.jda.api.exceptions.ContextException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 public class EventListener extends ListenerAdapter {
+
+    // specifying channel ids
     public final long bot_logs_channel_id = 998665610995183637L;
 
+    // Activates when someone reacts to a message.
+    // sends a message and jump url in the bot logs channel.
     @Override
     public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
         //user reacted to a message with "thumbs up" in #channel_name
@@ -35,13 +37,15 @@ public class EventListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+        // Getting some important information about the user and the messages sent.
         String message = event.getMessage().getContentRaw();
         String name = event.getMember().getEffectiveName();
 
-        //useless commands..
+        // Basic ping command with no ping in ms reply.
         if (message.contains("ping")){
             event.getChannel().sendMessage("pong..").queue();
         }
+
     }
 
 
@@ -56,8 +60,8 @@ public class EventListener extends ListenerAdapter {
     }
 
 
-    //this block of code dose not work for the time being.
-    //it throws contextException and somewhere it says it need to be cached too
+    //this block of code does not work for the time being.
+    //it throws contextException, and somewhere it says it needs to be cached too.
     public void sendMessage(User user, String content) {
         user.openPrivateChannel()
                 .flatMap(channel -> channel.sendMessage(content))
@@ -75,6 +79,5 @@ public class EventListener extends ListenerAdapter {
         assert bot_logs != null;
         bot_logs.sendMessage(memberLeftMessage).queue();
     }
-
 
 }

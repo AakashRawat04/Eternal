@@ -47,7 +47,7 @@ Open intellij idea and make a new project from the start.
 - In advanced setting do as per described in the image.
 - Create the project.
 
-<img src="https://cdn.discordapp.com/attachments/999332296396124251/999658678837850132/step1.png" width="600" height= "600" alt="step 1">
+<img src="https://cdn.discordapp.com/attachments/999332296396124251/999658678837850132/step1.png" width="700" height= "600" alt="step 1">
 
 #### Step 2.
 It is highly recommended to change/refactor the Main.java file.
