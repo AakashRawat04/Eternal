@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import com.tripsterxx.Eternal.EternalBot;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EventListener extends ListenerAdapter {
 
@@ -28,6 +29,12 @@ public class EventListener extends ListenerAdapter {
         int online_members = 0;
         for(Member member:membersList){
             if (member.getOnlineStatus() == OnlineStatus.ONLINE){
+                online_members++;
+            }
+            else if (member.getOnlineStatus() == OnlineStatus.IDLE){
+                online_members++;
+            }
+            else if (member.getOnlineStatus() == OnlineStatus.DO_NOT_DISTURB){
                 online_members++;
             }
         }
@@ -69,7 +76,7 @@ public class EventListener extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         // Getting some important information about the user and the messages sent.
         String message = event.getMessage().getContentRaw();
-        String name = event.getMember().getEffectiveName();
+        String name = Objects.requireNonNull(event.getMember()).getEffectiveName();
 
         // Basic ping command with no ping in ms reply.
         if (message.equals("ping")){
