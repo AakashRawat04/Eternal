@@ -15,7 +15,7 @@ public class EternalBot {
     //Defining Final Keywords.
     private final Dotenv config;
     private final ShardManager shardManager;
-
+    public static final String watching_status = "Breaking Bad";
 
 
     //EternalBot class constructor (setting up the bot --> status and activity are also defined here.)
@@ -28,7 +28,8 @@ public class EternalBot {
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(TOKEN);
         builder.enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES);
         builder.setStatus(OnlineStatus.ONLINE);
-        builder.setActivity(Activity.watching("Breaking Bad"));
+//        builder.setActivity(Activity.watching("Breaking Bad"));
+        builder.setActivity(Activity.watching(watching_status));
         shardManager = builder.build();
 
         //Register listeners

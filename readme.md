@@ -55,7 +55,7 @@ It is highly recommended to change/refactor the Main.java file.
 - Provide the name of your bot.
 - Good to go!!
 
-<img src="https://cdn.discordapp.com/attachments/999332296396124251/999658731044339863/step2.png" width="550" height="350" alt="step2-1">
+<img src="https://cdn.discordapp.com/attachments/999332296396124251/999658731044339863/step2.png" width="610" height="390" alt="step2-1">
 <br />
 <br />
 <img src="https://cdn.discordapp.com/attachments/999332296396124251/999658766058389526/step3.png" width="450" alt="step2-2">

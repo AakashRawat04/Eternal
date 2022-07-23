@@ -1,14 +1,14 @@
 package com.tripsterxx.Eternal.listners;
 
 // Imports
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
+import com.tripsterxx.Eternal.EternalBot;
 
 public class EventListener extends ListenerAdapter {
 
@@ -42,10 +42,16 @@ public class EventListener extends ListenerAdapter {
         String name = event.getMember().getEffectiveName();
 
         // Basic ping command with no ping in ms reply.
-        if (message.contains("ping")){
-            event.getChannel().sendMessage("pong..").queue();
+        if (message.equals("ping")){
+            event.getChannel().sendMessage("hey! Sup " + name).queue();
         }
 
+        // Reacts to when someone pings the bot. could be use in the future to make new users comfortable by sending a message to use a slash command for help
+
+        if (message.equals("<@998293876752253038>")){
+            event.getChannel().sendMessage("Hey "+ name + " nice to meet you\n"+"I'm currently watching: " + EternalBot.watching_status).queue();
+        }
+        // message.getContentRaw().contains("@here")
     }
 
 
@@ -55,7 +61,7 @@ public class EventListener extends ListenerAdapter {
         TextChannel bot_logs = event.getGuild().getTextChannelsByName("bot-logs",true).get(0);
         TextChannel generalChannel = event.getGuild().getTextChannelsByName("general",true).get(0);
         User user = event.getUser();
-        String welcomeMessage = user.getAsTag() + " joined the server!! \nWELCOME and have fun here in " + generalChannel.getAsMention() + " channel. ";
+        String welcomeMessage = user.getAsMention() + " joined the server!! \nWELCOME and have fun here in " + generalChannel.getAsMention() + " channel. ";
         bot_logs.sendMessage(welcomeMessage).queue();
     }
 
@@ -73,6 +79,8 @@ public class EventListener extends ListenerAdapter {
     //Member left message --> sends message in bot logs channel
     @Override
     public void onGuildMemberRemove(@NotNull GuildMemberRemoveEvent event) {
+
+        //Here the bot logs channel could have been found by the getChannelByName but this is to show how to do the same with different approach.
         TextChannel bot_logs = event.getGuild().getTextChannelById(bot_logs_channel_id);
         User user = event.getUser();
         String memberLeftMessage = user.getName() + " left the server!! \nSee you somewhere...";
