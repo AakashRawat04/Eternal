@@ -1,19 +1,43 @@
 package com.tripsterxx.Eternal.listners;
 
 // Imports
+import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.events.user.update.UserUpdateOnlineStatusEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 import com.tripsterxx.Eternal.EternalBot;
+
+import java.util.List;
 
 public class EventListener extends ListenerAdapter {
 
     // specifying channel ids
     public final long bot_logs_channel_id = 998665610995183637L;
+
+    // gets activated when someone in the server changes their online status or comes online or goes offline.
+    // also shares total online members in the server.
+    @Override
+    public void onUserUpdateOnlineStatus(@NotNull UserUpdateOnlineStatusEvent event) {
+        List<Member> membersList = event.getGuild().getMembers();
+
+        int online_members = 0;
+        for(Member member:membersList){
+            if (member.getOnlineStatus() == OnlineStatus.ONLINE){
+                online_members++;
+            }
+        }
+
+        User user = event.getUser();
+        String message = "**"+ user.getAsTag()+"**"+ " updated their online status to: " + event.getNewOnlineStatus().name() + ".\nThere are now "+online_members + " online";
+        TextChannel bot_logs = event.getGuild().getTextChannelsByName("bot-logs",true).get(0);
+
+        bot_logs.sendMessage(message).queue();
+    }
 
     // Activates when someone reacts to a message.
     // sends a message and jump url in the bot logs channel.
@@ -33,6 +57,12 @@ public class EventListener extends ListenerAdapter {
 
         TextChannel bot_logs = event.getGuild().getTextChannelsByName("bot-logs",true).get(0);
         bot_logs.sendMessage(message).queue();
+
+        // self role updation.
+        String selfRoleMessage = event.getMessageId();
+        if (selfRoleMessage.equals("998976223076175882")){
+            bot_logs.sendMessage("reaction role added to "+user).queue();
+        }
     }
 
     @Override

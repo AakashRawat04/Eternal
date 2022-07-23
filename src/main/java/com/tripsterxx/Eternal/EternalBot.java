@@ -7,6 +7,9 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
+import net.dv8tion.jda.api.utils.ChunkingFilter;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
 
@@ -26,10 +29,13 @@ public class EternalBot {
 
         //Sharding
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(TOKEN);
-        builder.enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES);
+        builder.enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES);
         builder.setStatus(OnlineStatus.ONLINE);
 //        builder.setActivity(Activity.watching("Breaking Bad"));
         builder.setActivity(Activity.watching(watching_status));
+        builder.setMemberCachePolicy(MemberCachePolicy.ALL); // it is going to cache all the members using lazy loading which means the data is being loaded slowly.(we are caching the members)
+        builder.setChunkingFilter(ChunkingFilter.ALL); // it forces your bot to cache all the users. (we are storing them all at the startup)
+        builder.enableCache(CacheFlag.ONLINE_STATUS); //(making sure we store their online status)
         shardManager = builder.build();
 
         //Register listeners
