@@ -1,5 +1,6 @@
 package com.tripsterxx.Eternal;
 
+import com.tripsterxx.Eternal.commands.CommandManager;
 import com.tripsterxx.Eternal.listners.EventListener;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -14,6 +15,8 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import javax.security.auth.login.LoginException;
 
 public class EternalBot {
+
+    //Bot version 1.0.0
 
     //Defining Final Keywords.
     private final Dotenv config;
@@ -39,7 +42,10 @@ public class EternalBot {
         shardManager = builder.build();
 
         //Register listeners
-        shardManager.addEventListener(new EventListener());
+        shardManager.addEventListener(
+                new EventListener(),
+                new CommandManager()
+        );
     }
 
     //some getters.

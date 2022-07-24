@@ -65,7 +65,7 @@ public class EventListener extends ListenerAdapter {
         TextChannel bot_logs = event.getGuild().getTextChannelsByName("bot-logs",true).get(0);
         bot_logs.sendMessage(message).queue();
 
-        // self role updation.
+        // updates when someone gets themselves a self-role message in the #self-role channel.
         String selfRoleMessage = event.getMessageId();
         if (selfRoleMessage.equals("998976223076175882")){
             bot_logs.sendMessage("reaction role added to "+user).queue();
