@@ -35,11 +35,35 @@ import java.util.function.Consumer;
  *<br/>
  * When onSlashCommandInteraction is triggered the bot has 3 seconds to respond to the message.
  *if the command needs more time to reply, then use of deferReply() is recommended which tells the discord to wait a little longer than usual.
+ *
+ * @author <b><a href="https://github.com/tripsterxx">Ash</a></b>
  */
 
 
 public class CommandManager extends ListenerAdapter {
-    //slash commands integration v1.0.0
+
+    /**
+     * <h2>Slash Commands Integration</h2>
+     * <p>
+     *     The <b>onSlashCommandInteraction</b> is an event which triggers when someone types ` / ` at the start of their message,
+     *     and the discord from this point does the work of showing all the slash commands of all the bots available
+     *     on the server.
+     *     <br/>
+     * </p>
+     * <p>All the commands in the if statements below are being checked and the one which matches further gets executed.</p>
+     *
+     * <p>
+     *      Slash commands are a new way of interacting with the bot which is actually a better way because now the user
+     *      knows how to interact with the bot which makes it simple for the user to understand how to use the command
+     *      correctly and also how to
+     * </p>
+     *
+     * <br>
+     * <b>Slash commands version: v1.0.0</b>
+     *
+     * @author <b><a href="https://github.com/tripsterxx">Ash</a></b>
+     */
+
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         String command = event.getName(); // /hello -> command = hello
@@ -53,15 +77,16 @@ public class CommandManager extends ListenerAdapter {
         else if (command.equals("welcome-global")){
             // run the '/welcome-global' command.
             String userTag = event.getUser().getAsTag();
-            event.reply("Hey **"+ userTag+"**!\nThis is a global command for this bot!\n\nYou are currently in"+
+            event.reply("Hey **"+ userTag+"**!\nThis is a global command for this bot!\n\nYou are currently in "+
                     event.getGuild().getName() + " server.").queue();
         }
 
-        // use of deferred reply.
+        // use of deferred reply. ( getting all the roles from a server might take some time!! )
         else if (command.equals("get-roles")) {
-            // run the slash roles command.(deferred replies
+            // run the slash roles command.(deferred replies)
             List<Role> roleList;
 
+            // checking if the user has the permission to manage roles.
             if (event.getMember().hasPermission(Permission.MANAGE_ROLES)){
                 roleList = event.getGuild().getRoles();
                 event.deferReply().queue();
@@ -96,7 +121,7 @@ public class CommandManager extends ListenerAdapter {
             event.reply("your message was sent").setEphemeral(true).queue();
         }
 
-        else if (command.equals("emote")) {
+        else if (command.equals("emotion")) {
             OptionMapping option = event.getOption("type");
             String type = option.getAsString();
             Member member =  event.getMember();
@@ -122,6 +147,7 @@ public class CommandManager extends ListenerAdapter {
             event.reply(replyMessage).queue();
         }
 
+        // command for admin users ( for giving roles to a member --> requires administrator permission)
         else if (command.equals("give-role")) {
             Member member = event.getOption("user").getAsMember();
             Role role = event.getOption("role").getAsRole();
@@ -157,7 +183,21 @@ public class CommandManager extends ListenerAdapter {
     }
 
 
-    // updating for guild commands.
+    /**
+     * <b>Updating for guild commands</b>
+     * <br>
+     * <br>
+     * The <b>onGuildReady</b> is an event which triggers when the bot comes online in a server.
+     * <br>
+     * <p>
+     *     This event is currently used for registering slash commands on the server.
+     *     An empty <i>list</i> of commands have been made of type <b>CommandData</b>
+     *     at the top for storing all the commands and then after creating and adding all the commands and options for the command,
+     *     we just add the List of commands at the end to ``addCommand()``function.
+     * </p>
+     * <p>This is how slash commands are being created and registered in discord by the bot for the time being. </p>
+     * @author <b><a href="https://github.com/tripsterxx">Ash</a></b>
+     */
     @Override
     public void onGuildReady(@NotNull GuildReadyEvent event) {
         List<CommandData> commandData = new ArrayList<>();
