@@ -1,2 +1,4 @@
-package com.tripsterxx.Eternal.Music;public class MusicPlayer {
+package com.tripsterxx.Eternal.Music;
+
+public class MusicPlayer {
 }
