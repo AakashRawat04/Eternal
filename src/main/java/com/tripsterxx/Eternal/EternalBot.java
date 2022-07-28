@@ -1,5 +1,6 @@
 package com.tripsterxx.Eternal;
 
+import com.tripsterxx.Eternal.Music.MusicPlayer;
 import com.tripsterxx.Eternal.commands.CommandManager;
 import com.tripsterxx.Eternal.listners.EventListener;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -39,6 +40,7 @@ public class EternalBot {
         builder.setMemberCachePolicy(MemberCachePolicy.ALL); // it is going to cache all the members using lazy loading which means the data is being loaded slowly.(we are caching the members)
         builder.setChunkingFilter(ChunkingFilter.ALL); // it forces your bot to cache all the users. (we are storing them all at the startup)
         builder.enableCache(CacheFlag.ONLINE_STATUS); //(making sure we store their online status)
+        builder.enableCache(CacheFlag.VOICE_STATE); // (making sure we are caching the voice state)
         shardManager = builder.build();
 
         //Register listeners

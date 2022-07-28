@@ -1,5 +1,6 @@
 package com.tripsterxx.Eternal.commands;
 
+import com.tripsterxx.Eternal.Music.MusicPlayer;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.ReadyEvent;
@@ -7,13 +8,19 @@ import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.AutoCompleteQuery;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.managers.AudioManager;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.tree.ExpandVetoException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -42,6 +49,14 @@ import java.util.function.Consumer;
 
 public class CommandManager extends ListenerAdapter {
 
+    public static boolean isURL(String url) {
+        try {
+            new URI(url);
+            return true;
+        } catch (URISyntaxException e) {
+            return false;
+        }
+    }
     /**
      * <h2>Slash Commands Integration</h2>
      * <p>
@@ -180,6 +195,35 @@ public class CommandManager extends ListenerAdapter {
             }
         }
 
+        //music commands v1.0.0
+        else if (command.equals("play")) {
+            if (!event.getMember().getVoiceState().inAudioChannel()){
+                event.getChannel().sendMessage("You are not in a voice channel! \n" +
+                        "please join <#1001838124424495114> vc for listening music!").queue();
+            }
+
+            OptionMapping link = event.getOption("song_name");
+            String songLink = link.toString();
+            if(!isURL(songLink)){
+                songLink = "ytsearch:" + link + " audio";
+            }
+
+            final AudioManager audioManager = event.getGuild().getAudioManager();
+            final VoiceChannel eternalVoiceChannel = event.getGuild().getVoiceChannelById("1001838124424495114");
+            audioManager.openAudioConnection(eternalVoiceChannel);
+
+            MusicPlayer.getINSTANCE().loadAndPlay((TextChannel) event.getChannel(), songLink);
+        }
+
+        else if (command.equals("skip")) {
+            if (!event.getMember().getVoiceState().inAudioChannel()){
+                event.getChannel().sendMessage("You are not in a voice channel! \n" +
+                        "please join <#1001838124424495114> vc for listening music!").queue();
+            }
+            TextChannel textChannel = event.getChannel().asTextChannel();
+            event.getChannel().sendMessage("skipped song").queue();
+            MusicPlayer.skipTrack(textChannel);
+        }
     }
 
 
@@ -226,20 +270,31 @@ public class CommandManager extends ListenerAdapter {
                 .addOptions(emoteOption));
 
 
-        //Command: /give-role <user> <role>
-        OptionData userGettingRole = new OptionData(OptionType.USER, "user", "The user to give the role to.", true);
-        OptionData roleToGive = new OptionData(OptionType.ROLE, "role", "The role to be given", true);
+        //Command: /give-role <userGettingRole> <roleToGive>
+        OptionData userGettingRole = new OptionData(OptionType.USER, "user_getting_role", "The user to give the role to.", true);
+        OptionData roleToGive = new OptionData(OptionType.ROLE, "role_to_give", "The role to be given", true);
 
         commandData.add(Commands.slash("give-role","give a user a role")
                 .addOptions(userGettingRole,roleToGive));
 
 
-        //Command: /remove-role <user> <role>
-        OptionData userToRemoveRole = new OptionData(OptionType.USER, "user", "The user to remove role from.", true);
-        OptionData roleToRemove = new OptionData(OptionType.ROLE, "role", "The role to be removed", true);
+        //Command: /remove-role <userToRemoveRole> <roleToRemove>
+        OptionData userToRemoveRole = new OptionData(OptionType.USER, "user_to_remove_role", "The user to remove role from.", true);
+        OptionData roleToRemove = new OptionData(OptionType.ROLE, "role_to_remove", "The role to be removed", true);
 
         commandData.add(Commands.slash("remove-role", "removes role from the user tagged")
                 .addOptions(userToRemoveRole, roleToRemove));
+
+
+        //Command: /play <song_name>
+        OptionData song_name = new OptionData(OptionType.STRING, "song_name", "The name of the song to be played", true);
+
+        commandData.add(Commands.slash("play", "play and listen songs in the vc")
+                .addOptions(song_name));
+
+
+        //Command: /skip simply skips the current song.
+        commandData.add(Commands.slash("skip","skips the current track"));
 
         event.getGuild().updateCommands().addCommands(commandData).queue();
     }
