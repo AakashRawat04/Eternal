@@ -16,7 +16,7 @@ Eternal is a Discord Bot written in JAVA using JDA which is a java wrapper for D
 
 - [Related](#related)
 
-- [**<u>Slash Command Manager</u>**](#slash-command-manager)
+- [**Slash Command Manager**](#slash-command-manager)
 
 - [Authors](#authors)
 ### Features
