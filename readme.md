@@ -16,7 +16,8 @@ Eternal is a Discord Bot written in JAVA using JDA which is a java wrapper for D
 
 - [Related](#related)
 
-- [Slash Command Manager](#slash-command-manager-:)
+- [Slash Command Manager](#slash-command-manager)
+  - [A working example](#a-working-example)
 
 - [Authors](#authors)
 ### Features
@@ -100,7 +101,7 @@ The documentation of JDA is available in the link below, and if you want to cont
 [JDA Discord Server](https://discord.gg/jda)
 
 *****
-## Slash Command Manager :
+## Slash Command Manager
 Slash commands is the new way to interact with the bots, which is actually a better way. It desent require the user to remember the commands completely. There are other good facts about slash commands, but this is not the correct place to talk about it.
 
 Slash commands can be added to the bot just by simple <u>*if else statement's*</u> too but when we talk about scalability it is never recommended to implement slash commads using if-else conditional statement's. 
@@ -109,7 +110,7 @@ It is because, when there are lots of command implementation's in just one file 
 
 Due to this problem we use <u>**command managers**</u>, so that the code remains more organized and readable.
 
-#### A Working Example :
+#### A Working Example
 
 > *A working example of slash commadn manager is demonstrated here in this repository. You can find the working example [here](https://github.com/tripsterxx/Eternal/tree/slashcommandmanager).*
 
