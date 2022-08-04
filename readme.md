@@ -7,16 +7,18 @@ Eternal is a Discord Bot written in JAVA using JDA which is a java wrapper for D
 
 - [Tech Stack](#tech-stack)
 
-- [set-up (intllij idea)](#setting-up-the-bot)
-  - [step 1](#step-1)
-  - [step 2](#step-2)
-  - [step 3](#step-3)
+- [Set-up (intllij idea)](#setting-up-the-bot)
+  - [Step -- 1](#step-1)
+  - [Step -- 2](#step-2)
+  - [Step -- 3](#step-3)
 
-- [optimizations](#optimizations)
+- [Optimizations](#optimizations)
 
-- [related](#related)
+- [Related](#related)
 
-- [authors](#authors)
+- [**<u>Slash Command Manager</u>**](#slash-command-manager)
+
+- [Authors](#authors)
 ### Features
 
 - User Commands.
@@ -33,6 +35,8 @@ Eternal is a Discord Bot written in JAVA using JDA which is a java wrapper for D
 
 **DataBase :** MongoDb to be used in future.
 
+
+*****
 ## Setting up the bot!
 
 We highly recommend you to use intellij idea for at least the development of this bot as we are going to share the set-up process of only intellij idea. Using any other IDE is also encouraged, there is no big difference in setting up the IDE. You can just take hint from the steps given below.
@@ -73,7 +77,7 @@ Things ahead of this process can be just done by pulling this repository.
 <img src="https://cdn.discordapp.com/attachments/999332296396124251/999658834652057700/step4.png" width="450" height = "250" alt="step2-2">
 
 *if you find any difficulty in doing anything you can just go to our server for help. the link to the server is given somewhere below.
-
+*****
 ## Optimizations
 
 A lot of features are being pushed continously. If you want to contribute to the community you can open pull requests.
@@ -94,6 +98,39 @@ The documentation of JDA is available in the link below, and if you want to cont
 [JDA Java Docs](https://ci.dv8tion.net/job/JDA5/javadoc/)
 
 [JDA Discord Server](https://discord.gg/jda)
+
+*****
+## Slash Command Manager :
+Slash commands is the new way to interact with the bots, which is actually a better way. It desent require the user to remember the commands completely. There are other good facts about slash commands, but this is not the correct place to talk about it.
+
+Slash commands can be added to the bot just by simple <u>*if else statement's*</u> too but when we talk about scalability it is never recommended to implement slash commads using if-else conditional statement's. 
+
+It is because, when there are lots of command implementation's in just one file using *if-else statements*, then the code becomes messy. It becomes difficult to find errors as all the commands are implemented in the same file (*which might eventually become a file containing thousands of lines of code which is definately not a good sign of a good code base*).
+
+Due to this problem we use <u>**command managers**</u>, so that the code remains more organized and readable.
+
+#### A Working Example :
+
+> *A working example of slash commadn manager is demonstrated here in this repository. You can find the working example [here](https://github.com/tripsterxx/Eternal/tree/slashcommandmanager).*
+
+For demonstration purpose a [test_ping](https://github.com/tripsterxx/Eternal/blob/slashcommandmanager/src/main/java/com/tripsterxx/Eternal/commands/test_ping.java) command has been made which returns the actual ping of the bot.
+
+First of all( we need to make a file named same as the command name), we need to extend [SlashCommad](https://github.com/tripsterxx/Eternal/blob/36bb753c35b1be0dcdb6831a33d2a9aa56d0900d/src/main/java/com/tripsterxx/Eternal/slashCommandManager/SlashCommand.java) class, which is an abstract class having an abstract method [execute](https://github.com/tripsterxx/Eternal/blob/36bb753c35b1be0dcdb6831a33d2a9aa56d0900d/src/main/java/com/tripsterxx/Eternal/slashCommandManager/SlashCommand.java#L19), which means we need to implement it while creating a new command. <u>**This execute method is the mothod where all the core logic of the command goes in.**</u>
+
+>*It is usually recommended to make a package named commands for organizing all the commands. This is what I have done at least in my case.*
+
+- #### Here in our case, [SlashCommadManager](https://github.com/tripsterxx/Eternal/blob/36bb753c35b1be0dcdb6831a33d2a9aa56d0900d/src/main/java/com/tripsterxx/Eternal/slashCommandManager/SlashCommandManager.java) is the **Main Class**.
+
+We make the object of it in the main [Eternal bot class](https://github.com/tripsterxx/Eternal/blob/slashcommandmanager/src/main/java/com/tripsterxx/Eternal/EternalBot.java#L63).
+The constructor of the SlashCommadManager class required an jda object as an argument.
+
+After initiating the [SlashCommadManager class object](https://github.com/tripsterxx/Eternal/blob/36bb753c35b1be0dcdb6831a33d2a9aa56d0900d/src/main/java/com/tripsterxx/Eternal/EternalBot.java#L63) we can then start making commands and eventually call [addCommands](https://github.com/tripsterxx/Eternal/blob/36bb753c35b1be0dcdb6831a33d2a9aa56d0900d/src/main/java/com/tripsterxx/Eternal/EternalBot.java#L64) method to add those commands. (Multiple commands can be added with the help of commas). We need to call the [listen method](https://github.com/tripsterxx/Eternal/blob/36bb753c35b1be0dcdb6831a33d2a9aa56d0900d/src/main/java/com/tripsterxx/Eternal/slashCommandManager/SlashCommandManager.java#L29) in the end and before adding all the commands, which [simply adds an event listner](https://github.com/tripsterxx/Eternal/blob/36bb753c35b1be0dcdb6831a33d2a9aa56d0900d/src/main/java/com/tripsterxx/Eternal/slashCommandManager/SlashCommandManager.java#L29), because of which we get access of all the method of JDA.
+
+[SlashEventHandler](https://github.com/tripsterxx/Eternal/blob/dev/src/main/java/com/tripsterxx/Eternal/slashCommandManager/SlashEventHandler.java) is the class which extends ListnerAdapter class from JDA. The [Constructor of slash event handler](https://github.com/tripsterxx/Eternal/blob/36bb753c35b1be0dcdb6831a33d2a9aa56d0900d/src/main/java/com/tripsterxx/Eternal/slashCommandManager/SlashEventHandler.java#L11) acts as a setter which sets the final variable slash command manager to given Slash Command Manager in the parameters.
+
+This SlashEventHandler class listens for all the [onSlashCommandInteraction](https://github.com/tripsterxx/Eternal/blob/36bb753c35b1be0dcdb6831a33d2a9aa56d0900d/src/main/java/com/tripsterxx/Eternal/slashCommandManager/SlashEventHandler.java#L16) events and checks if the command is available in the bot's command list or not. If the command provided gets matched then it stops searching for the command and runs the [execute method](https://github.com/tripsterxx/Eternal/blob/36bb753c35b1be0dcdb6831a33d2a9aa56d0900d/src/main/java/com/tripsterxx/Eternal/commands/test_ping.java#L12) ( *In our case it is the ping command* ).
+
+### Contribution in adding new commands in promoted !! feel free to contribute.
 
 ## Authors
 
