@@ -1,14 +1,13 @@
 package com.tripsterxx.Eternal;
 
-import com.tripsterxx.Eternal.Music.MusicPlayer;
-import com.tripsterxx.Eternal.commands.CommandManager;
-import com.tripsterxx.Eternal.listners.EventListener;
+import com.tripsterxx.Eternal.commands.test_ping;
+import com.tripsterxx.Eternal.slashCommandManager.SlashCommandManager;
 import io.github.cdimascio.dotenv.Dotenv;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
-import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
@@ -21,7 +20,7 @@ public class EternalBot {
 
     //Defining Final Keywords.
     private final Dotenv config;
-    private final ShardManager shardManager;
+//    private final ShardManager shardManager;
     public static final String watching_status = "Breaking Bad";
 
 
@@ -31,6 +30,7 @@ public class EternalBot {
         config = Dotenv.configure().load();
         String TOKEN = config.get("TOKEN");
 
+        /*
         //Sharding
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(TOKEN);
         builder.enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES);
@@ -48,15 +48,30 @@ public class EternalBot {
                 new EventListener(),
                 new CommandManager()
         );
+
+         */
+
+        JDA jda = JDABuilder.createDefault(TOKEN, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_EMOJIS_AND_STICKERS)
+                .setStatus(OnlineStatus.IDLE)
+                .setActivity(Activity.watching(watching_status))
+                .setMemberCachePolicy(MemberCachePolicy.ALL)
+                .setChunkingFilter(ChunkingFilter.ALL)
+                .enableCache(CacheFlag.ONLINE_STATUS)
+                .enableCache(CacheFlag.VOICE_STATE)
+                .build();
+
+        SlashCommandManager slashCommandManager = new SlashCommandManager(jda);
+        slashCommandManager.addCommands(new test_ping());
+        slashCommandManager.listen();
     }
 
     //some getters.
     public Dotenv getConfig(){
         return config;
     }
-    public ShardManager getShardManager(){
-        return shardManager;
-    }
+//    public ShardManager getShardManager(){
+//        return shardManager;
+//    }
 
     // Initializing the bot--> makes the bot online.
     public static void main(String[] args) {
