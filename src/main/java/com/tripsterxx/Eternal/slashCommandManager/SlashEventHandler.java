@@ -1,5 +1,6 @@
 package com.tripsterxx.Eternal.slashCommandManager;
 
+import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -20,5 +21,10 @@ public class SlashEventHandler extends ListenerAdapter{
         if (commandMap.containsKey(commandName)) {
             commandMap.get(commandName).execute(event);
         }
+    }
+
+    @Override
+    public void onGuildReady(@NotNull GuildReadyEvent event) {
+        super.onGuildReady(event);
     }
 }

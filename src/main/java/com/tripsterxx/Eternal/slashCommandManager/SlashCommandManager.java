@@ -19,10 +19,7 @@ public class SlashCommandManager {
     }
 
     public void addCommand(@NonNull SlashCommand command) {
-        // updating for guild commands.
-        Guild guild = jda.getGuildById(908203872454062111L);
-        assert guild != null;
-        guild.updateCommands().addCommands(command.getInfo()).queue();
+        jda.updateCommands().addCommands(command.getInfo()).queue();
         slashCommandCollection.put(command.getName(), command);
     }
 
