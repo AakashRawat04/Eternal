@@ -34,4 +34,5 @@ public class SlashCommandManager {
     public Map<String, SlashCommand> getSlashCommandCollection(){
         return this.slashCommandCollection;
     }
+
 }
