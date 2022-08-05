@@ -2,6 +2,7 @@ package com.tripsterxx.Eternal.slashCommandManager;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Guild;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,7 +19,10 @@ public class SlashCommandManager {
     }
 
     public void addCommand(@NonNull SlashCommand command) {
-        jda.updateCommands().addCommands(command.getInfo()).queue();
+        // updating for guild commands.
+        Guild guild = jda.getGuildById(908203872454062111L);
+        assert guild != null;
+        guild.updateCommands().addCommands(command.getInfo()).queue();
         slashCommandCollection.put(command.getName(), command);
     }
 
