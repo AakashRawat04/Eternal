@@ -2,7 +2,6 @@ package com.tripsterxx.Eternal.slashCommandManager;
 
 import lombok.NonNull;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Guild;
 
 import java.util.Arrays;
 import java.util.HashMap;
