@@ -1,6 +1,8 @@
 package com.tripsterxx.Eternal;
 
+import com.tripsterxx.Eternal.commands.get_roles;
 import com.tripsterxx.Eternal.commands.test_ping;
+import com.tripsterxx.Eternal.commands.welcome;
 import com.tripsterxx.Eternal.slashCommandManager.SlashCommandManager;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
@@ -61,7 +63,10 @@ public class EternalBot {
                 .build();
 
         SlashCommandManager slashCommandManager = new SlashCommandManager(jda);
-        slashCommandManager.addCommands(new test_ping());
+        slashCommandManager.addCommands(
+                new test_ping(),
+                new welcome(),
+                new get_roles());
         slashCommandManager.listen();
     }
 
