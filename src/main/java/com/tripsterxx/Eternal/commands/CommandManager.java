@@ -83,13 +83,13 @@ public class CommandManager extends ListenerAdapter {
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         String command = event.getName(); // /hello -> command = hello
 
-        if (command.equals("welcome")){
-            // run the '/welcome' command.
-            String userTag = event.getUser().getAsTag();
-            event.reply("welcome to the server **"+ userTag+"**!").queue();
-        }
+//        if (command.equals("welcome")){
+//            // run the '/welcome' command.
+//            String userTag = event.getUser().getAsTag();
+//            event.reply("welcome to the server **"+ userTag+"**!").queue();
+//        }
 
-        else if (command.equals("welcome-global")){
+        if (command.equals("welcome-global")){
             // run the '/welcome-global' command.
             String userTag = event.getUser().getAsTag();
             event.reply("Hey **"+ userTag+"**!\nThis is a global command for this bot!\n\nYou are currently in "+
@@ -97,25 +97,25 @@ public class CommandManager extends ListenerAdapter {
         }
 
         // use of deferred reply. ( getting all the roles from a server might take some time!! )
-        else if (command.equals("get-roles")) {
-            // run the slash roles command.(deferred replies)
-            List<Role> roleList;
-
-            // checking if the user has the permission to manage roles.
-            if (event.getMember().hasPermission(Permission.MANAGE_ROLES)){
-                roleList = event.getGuild().getRoles();
-                event.deferReply().queue();
-                String response = "";
-                for (Role role: roleList){
-                    response += role.getAsMention() + "\n";
-                }
-                event.getHook().sendMessage(response).queue();
-            }
-            else {
-                event.getChannel().sendMessage("you don't have permission to use this command!").queue();
-            }
-
-        }
+//        else if (command.equals("get-roles")) {
+//            // run the slash roles command.(deferred replies)
+//            List<Role> roleList;
+//
+//            // checking if the user has the permission to manage roles.
+//            if (event.getMember().hasPermission(Permission.MANAGE_ROLES)){
+//                roleList = event.getGuild().getRoles();
+//                event.deferReply().queue();
+//                String response = "";
+//                for (Role role: roleList){
+//                    response += role.getAsMention() + "\n";
+//                }
+//                event.getHook().sendMessage(response).queue();
+//            }
+//            else {
+//                event.getChannel().sendMessage("you don't have permission to use this command!").queue();
+//            }
+//
+//        }
 
         else if (command.equals("say")){
             OptionMapping messageOption = event.getOption("message");
